@@ -13,6 +13,7 @@ services:
   backend:
     image: backend:1.0.0
     working_dir: /home/node/app
+    stdin_open: true
     restart: always
     build:
       context: ./backend
@@ -22,10 +23,14 @@ services:
     volumes:
       - ./backend:/home/node/app
       - /home/node/app/node_modules
-    develop:
-      watch:
-        - action : rebuild
-          path : ./backend/package.json
+    # develop:
+    #   watch:
+    #     - action : sync
+    #       path : ./backend
+    #       target: /home/node/app
+    #       ignore: [node_modules, .git, .dockerignore, .gitignore, Dockerfile]
+    #     - action : rebuild
+    #       path : ./backend/package.json
     depends_on:
       - database
     environment:
@@ -36,11 +41,13 @@ services:
     networks:
       - mongo-network
       - backend-network
-    command: [ "npm", "run", "dev" ]
+    command: nodemon --watch 'src/**/*.ts' --exec node --require esbuild-register src/index.ts
+
 
   frontend:
     image: frontend:1.0.0
     working_dir: /home/node/app
+    stdin_open: true
     build:
       context: ./frontend
     container_name: frontend
@@ -52,10 +59,11 @@ services:
     depends_on:
       - backend
     environment:
+      - CHOKIDAR_USEPOLLING=true
       - REACT_APP_BACKEND_URL=http://backend-service:5000
     networks:
       - backend-network
-    command: [ "npm", "run", "dev" ]
+    command: nodemon --watch 'src/**/*.{ts,tsx,css}' --exec vite --host
 
 volumes:
   mongo-data:

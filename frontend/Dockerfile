@@ -8,6 +8,7 @@ WORKDIR /home/node/app
 COPY package*.json ./
 
 # Install dependencies
+RUN npm install -g nodemon
 RUN npm install
 
 # Copy the rest of the application code
@@ -20,4 +21,4 @@ COPY . .
 EXPOSE 5173
 
 # Start the Next.js application
-CMD ["npm", "run","dev"]
+# CMD ["npm", "run","dev"]

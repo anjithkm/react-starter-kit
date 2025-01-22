@@ -1,15 +1,15 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from "mongoose";
 
 interface IItem extends Document {
-  name: string;
+	name: string;
 }
 
 const ItemSchema: Schema = new Schema({
-  name: {
-    type: String,
-    required: true
-  }
+	name: {
+		type: String,
+		required: true,
+	},
 });
 
-export const Item = mongoose.model<IItem>('Item', ItemSchema);
+export const Item = mongoose.model<IItem>("Item", ItemSchema);
 export default Item;
