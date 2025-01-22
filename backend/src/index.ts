@@ -21,7 +21,7 @@ mongoose.connect(mongoURI)
 app.use('/api', itemRoutes); // Use item routes
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello, World!!!!');
+  res.send('Hello, World!!!!!!');
 });
 
 // Start the server
