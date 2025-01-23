@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Item from "#/src/models/Item.model";
+import Item from "@/models/Item.model";
 
 export async function getItem(req: Request, res: Response) {
 	try {

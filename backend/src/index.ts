@@ -1,3 +1,5 @@
+import '@/config/global'
+
 import express, { Request, Response } from "express";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -28,5 +30,5 @@ mongoose
 app.use("/api", itemRoutes); // Use item routes
 
 app.get("/", (req: Request, res: Response) => {
-	res.send("Hello, World!!!!!!!!!!!!!!!!!!!!!!!!!");
+	res.send("Hello, World!");
 });
