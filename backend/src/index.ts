@@ -3,7 +3,7 @@ import '@/config/global'
 import express, { Request, Response } from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import itemRoutes from "./routes/item.routes"; // Import item routes
+import routes from "./routes"; // Import item routes
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -27,7 +27,7 @@ mongoose
 	.catch((err) => console.error("MongoDB connection error:", err));
 
 // Routes
-app.use("/api", itemRoutes); // Use item routes
+app.use("/api", routes); // Use item routes
 
 app.get("/", (req: Request, res: Response) => {
 	res.send("Hello, World!");

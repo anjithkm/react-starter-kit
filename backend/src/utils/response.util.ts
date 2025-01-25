@@ -26,7 +26,7 @@ export const response = (res: Response) => {
         error: error,
       });
     },
-    unauthorized: ( error: any = null , message?: String) => {
+    unauthorized: ( message?: string , error: any = null) => {
       return res.status(401).send({
         success: false,
         message: message || "Unauthorized",

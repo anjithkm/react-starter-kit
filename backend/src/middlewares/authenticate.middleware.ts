@@ -1,16 +1,17 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { response } from '@/utils/response.utils';
+import { response } from '#/src/utils/response.util';
 
-export const authenticate =(...roles:string[]) => (req: Request, res: Response, next: NextFunction) => {
+export const authenticate = (...roles:string[]) => async function (req: Request, res: Response, next: NextFunction) : Promise<any>{
 
   const token = req.header('Authorization')?.replace('Bearer', '').trim() || '';
 
   if (!token) {
 
-    response(res).unauthorized();
+   return response(res).unauthorized('Invalid Token');
 
   } else {
+
       try {
 
         req.user = jwt.verify(
@@ -21,7 +22,7 @@ export const authenticate =(...roles:string[]) => (req: Request, res: Response, 
 
         if (!roles.includes(req?.user?.role)) {
 
-          response(res).unauthorized();
+          return response(res).unauthorized();
 
         }else{
 
@@ -29,9 +30,9 @@ export const authenticate =(...roles:string[]) => (req: Request, res: Response, 
 
         }
         
-      } catch (err) {
+      } catch (err:any) {
 
-        response(res).unauthorized();
+        return response(res).unauthorized(err);
 
       }
   }

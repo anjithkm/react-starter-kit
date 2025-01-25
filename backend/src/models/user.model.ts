@@ -2,16 +2,17 @@ import mongoose, { Document, Schema } from "mongoose";
 import { roleEnum } from "@/config/enum";
 
 interface User extends Document {
-    name: string;
+    user_name: string;
     email: string;
     role: string;
+    password: string;
 }
 
 const UserSchema: Schema = new Schema({
     _id: {
         type: mongoose.Types.ObjectId,
     },
-    name: {
+    user_name: {
         type: String,
         required: true,
     },
@@ -22,9 +23,15 @@ const UserSchema: Schema = new Schema({
     role: {
         type: String,
         enum: Object.values(roleEnum),
+        default: roleEnum.USER,
+        required: true,
+    },
+    password: {
+        type: String,
+        enum: Object.values(roleEnum),
         required: true,
     },
 });
 
-export const Item = mongoose.model<User>("Item", UserSchema);
+export const Item = mongoose.model<User>("User", UserSchema);
 export default Item;
