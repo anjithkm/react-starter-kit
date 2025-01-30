@@ -1,9 +1,7 @@
 echo "Running tests..."
 
 # Run linters for frontend
-cd frontend && npm run format && cd ..
-
-npm run test
+cd frontend && npm run test && cd ..
 
 if [ $? -ne 0 ]; then
  echo "Tests failed. Please fix the issues before pushing."
