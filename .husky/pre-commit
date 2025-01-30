@@ -2,5 +2,10 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 echo "Formating..."
-npx @biomejs/biome format --write
+
+# Run linters for frontend
+cd frontend && npm run format && cd ..
+
+# # Run linters for backend
+# cd backend && npm run lint && cd ..
 
