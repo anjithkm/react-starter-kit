@@ -10,7 +10,7 @@ export const store = configureStore({
 		[counter.name]: counter.reducer,
 	}),
 	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware),
-	devTools: process.env.NODE_ENV !== 'production',
+	// devTools: process.env.NODE_ENV !== 'production',
 })
 
 // TypeScript types for the store
