@@ -1,9 +1,18 @@
-import { JwtPayload } from 'jsonwebtoken';
+import { JwtPayload } from "jsonwebtoken";
+import { SessionData } from "express-session";
 
-declare global {
-  namespace Express {
-    interface Request {
-      user?: JwtPayload; // Optionally, you can specify the exact details for the user
-    }
-  }
+declare module "express-session" {
+	interface SessionData {
+		views?: number;
+		lastActive?: number;
+		user?: JwtPayload;
+	}
+}
+
+declare module "express" {
+	namespace Express {
+		interface Request {
+			session: SessionData;
+		}
+	}
 }

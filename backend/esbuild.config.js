@@ -5,6 +5,10 @@ esbuild.build({
   bundle: true,
   outdir: 'dist',
   platform: 'node', // Add this line
+  loader: {
+    '.html': 'text',  // This tells esbuild to treat HTML files as text files
+  },
+  external: ['mock-aws-s3', 'aws-sdk', 'nock'],
   plugins: [
     {
       name: 'alias',
