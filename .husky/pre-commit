@@ -1,4 +1,4 @@
-echo "Formating..."
+echo "Running formating..."
 
 # Run linters for frontend
 cd frontend && npm run format && cd ..
