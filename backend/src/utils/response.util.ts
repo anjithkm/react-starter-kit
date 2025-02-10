@@ -34,6 +34,14 @@ export const response = (res: Response) => {
 				error: error,
 			});
 		},
+		invalidToken: ( error: any = null) => {
+			return res.status(498).send({
+				success: false,
+				message: "Invalid Token",
+				data: null,
+				error: error,
+			});
+		},
 		internalError: (error: any, message?: string) => {
 			return res.status(500).send({
 				success: false,

@@ -2,14 +2,13 @@
 import React from "react";
 import Layout from "@/layout/app";
 
-import api from '@/services/api';
+import api from "@/services/api";
 
 import "./home.css";
 
-
 export const Home: React.FC = () => {
 
-	const getPostById = api.useGetPostByIdQuery('1');
+	const { data, isLoading, isError, isSuccess } = api.useGetPostsQuery()
 
 	return (
 		<Layout>
@@ -18,7 +17,12 @@ export const Home: React.FC = () => {
 				<p>
 					Edit <code>src/App.tsx</code> and save to test HMR
 				</p>
-				<ul>{getPostById.data && <li key={getPostById.data.id}>{getPostById.data.title}</li>}</ul>
+				<p> { isLoading && "loading.." }</p>
+				{/* <ul>
+					{getPostById.data && (
+						<li key={getPostById.data.id}>{getPostById.data.title}</li>
+					)}
+				</ul> */}
 			</div>
 		</Layout>
 	);

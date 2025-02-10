@@ -8,6 +8,7 @@ const sessionExpiration = constEnum.SESSION_EXP;
 export async function sessionValidate(req: Request, res: Response, next: NextFunction): Promise<any> {
 	const now = Date.now();
 	if (req.session && req.session.lastActive) {
+
 		const timeSinceLastActive = now - req.session.lastActive;
 
 		if (timeSinceLastActive > sessionExpiration) {

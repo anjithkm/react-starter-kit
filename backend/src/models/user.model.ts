@@ -9,9 +9,6 @@ interface User extends Document {
 }
 
 const UserSchema: Schema = new Schema({
-	_id: {
-		type: mongoose.Types.ObjectId,
-	},
 	user_name: {
 		type: String,
 		required: true,
@@ -28,7 +25,6 @@ const UserSchema: Schema = new Schema({
 	},
 	password: {
 		type: String,
-		enum: Object.values(roleEnum),
 		required: true,
 	},
 });
