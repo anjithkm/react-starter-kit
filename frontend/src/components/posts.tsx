@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { useCreatePostMutation, useGetPostsQuery } from "@/services/api";
+import api from "@/services/api";
 
 const Posts: React.FC = () => {
 	const [title, setTitle] = useState("");
 	const [body, setBody] = useState("");
-	const [createPost, { isLoading }] = useCreatePostMutation();
+	const [createPost, { isLoading }] = api.useCreatePostMutation();
 	const {
 		data: getPostData,
 		error: getPostError,
 		isLoading: getPostLoading,
-	} = useGetPostsQuery();
+	} = api.useGetPostsQuery();
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
