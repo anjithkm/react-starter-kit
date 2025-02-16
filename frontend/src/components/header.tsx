@@ -15,7 +15,6 @@ const Container = styled.div`
   gap: 10px;
 `;
 
-
 export const Header: React.FC<Props> = () => {
 	return (
 		<Container>

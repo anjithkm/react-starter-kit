@@ -20,7 +20,6 @@ const Container = styled.div`
 `;
 
 export const AppLayout: React.FC<Props> = ({ children, privatized = true }) => {
-	
 	const navigate = useNavigate();
 	const { isError } = api.useRefreshQuery();
 

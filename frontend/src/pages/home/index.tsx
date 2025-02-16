@@ -18,7 +18,6 @@ const Container = styled.div`
 `;
 
 export const Home: React.FC = () => {
-
 	const { isLoading } = api.useGetPostsQuery();
 
 	return (
@@ -27,7 +26,7 @@ export const Home: React.FC = () => {
 				<p>
 					Edit <code>src/pages</code> and save.
 				</p>
-				<Counter/>
+				<Counter />
 				<p> {isLoading && "loading.."}</p>
 			</Container>
 		</Layout>

@@ -10,7 +10,6 @@ const Container = styled.div`
   margin-top: auto;
 `;
 
-
 const Footer: React.FC<Props> = () => {
 	return (
 		<Container>

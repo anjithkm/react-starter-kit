@@ -1,4 +1,5 @@
 import { EndpointBuilder, BaseQueryFn } from "@reduxjs/toolkit/query/react";
+import { setUserData, getUserData, clearUserData } from "@/util/user";
 
 // Define TypeScript interfaces for API responses
 interface loginCredentials {
@@ -24,15 +25,10 @@ interface loginResponse {
 	timestamp: string;
 }
 
-export const setUserData = (data: any) => {
-	const stringified = JSON.stringify(data);
-	window.localStorage.setItem("USER_DATA-XAPP", stringified);
-};
 
 export const getRefreshTokenQuery = () => {
-	const user = window.localStorage.getItem("USER_DATA-XAPP");
-	if (user) {
-		const data = JSON.parse(user);
+	const data = getUserData();
+	if (data) {
 		return `/auth/refresh?access_token=${data?.access_token}&refresh_token=${data?.refresh_token}`;
 	}
 	return `/auth/refresh?access_token=null&refresh_token=null`;
@@ -45,6 +41,13 @@ export const authApiEndPoints = (
 	return {
 		logout: builder.query<any, void>({
 			query: () => "/auth/logout",
+			transformResponse: (response: any) => {
+				// Add a timestamp to each post
+				if (response.success) {
+					clearUserData();
+				}
+				return response;
+			},
 		}),
 		login: builder.mutation<any, loginCredentials>({
 			query: (payload: loginCredentials) => ({

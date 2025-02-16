@@ -5,16 +5,16 @@ import * as Yup from "yup";
 import api from "@/services/api";
 import { useNavigate } from "react-router-dom";
 
-import { 
+import {
 	LoginFormContainer,
 	FormControl,
 	ErrorText,
 	SubmitButton,
-	} from "./style";
+} from "./style";
 
 export interface LoginFormValues {
-    user_name: string;
-    password: string;
+	user_name: string;
+	password: string;
 }
 
 const Login: React.FC = () => {
@@ -28,8 +28,7 @@ const Login: React.FC = () => {
 		user_name: "",
 		password: "",
 	};
-	
-	
+
 	const validationSchema = Yup.object({
 		user_name: Yup.string().required("Required"),
 		password: Yup.string().min(6, "Minimum 6 characters").required("Required"),

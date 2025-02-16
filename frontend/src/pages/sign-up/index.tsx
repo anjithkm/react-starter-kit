@@ -3,21 +3,18 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import "./signup.css";
 
-import { 
+import {
 	SignUpFormContainer,
 	FormControl,
 	ErrorText,
 	SubmitButton,
-	} from "./style";
+} from "./style";
 
 import api from "@/services/api";
 
 const SignUp: React.FC = () => {
-
-	const [
-		postSignUp,
-		{ isError: signUpError, isLoading: signUpLoading }
-	   ] = api.useSignUpMutation();
+	const [postSignUp, { isError: signUpError, isLoading: signUpLoading }] =
+		api.useSignUpMutation();
 
 	const initialValues = {
 		email: "",
@@ -48,9 +45,7 @@ const SignUp: React.FC = () => {
 	return (
 		<SignUpFormContainer>
 			<h2>Sign Up</h2>
-			<ErrorText>
-			{ signUpError ? "Error. Try again!" : ""}
-			</ErrorText>
+			<ErrorText>{signUpError ? "Error. Try again!" : ""}</ErrorText>
 			<Formik
 				initialValues={initialValues}
 				validationSchema={validationSchema}
@@ -92,7 +87,6 @@ const SignUp: React.FC = () => {
 					<SubmitButton type="submit">
 						{signUpLoading ? "Loading..." : "Sign up"}
 					</SubmitButton>
-
 				</Form>
 			</Formik>
 		</SignUpFormContainer>
