@@ -13,7 +13,7 @@ interface NewPost {
 }
 
 // Define API End points
-export const postApiEndPoints  = (
+export const postApiEndPoints = (
 	builder: EndpointBuilder<BaseQueryFn, string, string>,
 ) => {
 	return {

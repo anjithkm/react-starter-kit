@@ -1,5 +1,5 @@
 import React from "react";
-import { createBrowserRouter, RouterProvider  } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Login from "@/pages/login";
 import SignUp from "@/pages/sign-up";
@@ -31,7 +31,6 @@ const router = createBrowserRouter([
 ]);
 
 const Router: React.FC = () => {
-	
 	return <RouterProvider router={router} />;
 };
 

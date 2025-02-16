@@ -1,29 +1,35 @@
 // Home.js
 import React from "react";
 import Layout from "@/layout/app";
+import styled from "styled-components";
+import Counter from "@/components/counter";
 
 import api from "@/services/api";
 
 import "./home.css";
 
+const Container = styled.div`
+  display:flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const Home: React.FC = () => {
 
-	const { data, isLoading, isError, isSuccess } = api.useGetPostsQuery()
+	const { isLoading } = api.useGetPostsQuery();
 
 	return (
 		<Layout>
-			<h1>Vite + React + TS </h1>
-			<div className="card">
+			<Container>
 				<p>
-					Edit <code>src/App.tsx</code> and save to test HMR
+					Edit <code>src/pages</code> and save.
 				</p>
-				<p> { isLoading && "loading.." }</p>
-				{/* <ul>
-					{getPostById.data && (
-						<li key={getPostById.data.id}>{getPostById.data.title}</li>
-					)}
-				</ul> */}
-			</div>
+				<Counter/>
+				<p> {isLoading && "loading.."}</p>
+			</Container>
 		</Layout>
 	);
 };

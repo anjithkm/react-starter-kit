@@ -8,7 +8,7 @@ interface loginCredentials {
 
 interface signUpCredentials {
 	user_name: string;
-	email:string;
+	email: string;
 	password: string;
 	confirmPassword: string;
 }
@@ -24,19 +24,19 @@ interface loginResponse {
 	timestamp: string;
 }
 
-export const setUserData = (data:any)=>{
+export const setUserData = (data: any) => {
 	const stringified = JSON.stringify(data);
-	window.localStorage.setItem('USER_DATA-XAPP',stringified)
-}
+	window.localStorage.setItem("USER_DATA-XAPP", stringified);
+};
 
-export const getRefreshTokenQuery = () =>{
-	const user = window.localStorage.getItem('USER_DATA-XAPP');
-	if(user){
-	  const data = JSON.parse(user);
-	  return `/auth/refresh?access_token=${data?.access_token}&refresh_token=${data?.refresh_token}`
+export const getRefreshTokenQuery = () => {
+	const user = window.localStorage.getItem("USER_DATA-XAPP");
+	if (user) {
+		const data = JSON.parse(user);
+		return `/auth/refresh?access_token=${data?.access_token}&refresh_token=${data?.refresh_token}`;
 	}
-	return `/auth/refresh?access_token=null&refresh_token=null`
-}
+	return `/auth/refresh?access_token=null&refresh_token=null`;
+};
 
 // Define API End points
 export const authApiEndPoints = (
@@ -53,12 +53,12 @@ export const authApiEndPoints = (
 				body: payload,
 			}),
 			// Use transformResponse to modify the response data before it's stored in Redux
-			transformResponse: (response:any) => {
-			// Add a timestamp to each post
-			if(response.success){
-				setUserData(response.data)
-			}
-			return response
+			transformResponse: (response: any) => {
+				// Add a timestamp to each post
+				if (response.success) {
+					setUserData(response.data);
+				}
+				return response;
 			},
 		}),
 		signUp: builder.mutation<any, signUpCredentials>({
@@ -69,13 +69,13 @@ export const authApiEndPoints = (
 			}),
 		}),
 		refresh: builder.query<any, void>({
-			query:()=>getRefreshTokenQuery(),
+			query: () => getRefreshTokenQuery(),
 			// Use transformResponse to modify the response data before it's stored in Redux
-			transformResponse: (response:any) => {
-				if(response.success){
-					setUserData(response.data)
+			transformResponse: (response: any) => {
+				if (response.success) {
+					setUserData(response.data);
 				}
-				return response
+				return response;
 			},
 		}),
 	};

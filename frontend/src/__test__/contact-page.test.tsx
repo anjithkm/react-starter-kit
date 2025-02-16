@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
-import About from "@/pages/about";
+import Contact from "@/pages/contact";
 import "@testing-library/jest-dom";
 
 it("renders About page correctly", () => {
-	render(<About />);
-	expect(screen.getByText("About")).toBeInTheDocument();
+	render(<Contact />);
+	expect(screen.getByText("Contact")).toBeInTheDocument();
 });

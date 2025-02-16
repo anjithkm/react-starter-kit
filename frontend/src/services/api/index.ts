@@ -6,54 +6,55 @@ import {
 } from "@reduxjs/toolkit/query/react";
 
 import postApiEndPoints from "./posts";
-import authApiEndPoints,{ setUserData, getRefreshTokenQuery } from "./authentication";
+import authApiEndPoints, {
+	setUserData,
+	getRefreshTokenQuery,
+} from "./authentication";
 
 // Create a custom fetchBaseQuery with a response interceptor
 const customBaseQuery = fetchBaseQuery({
 	baseUrl: "http://localhost:5000/api",
-	prepareHeaders: ( headers ) => {
-		const user = window.localStorage.getItem('USER_DATA-XAPP');
+	prepareHeaders: (headers) => {
+		const user = window.localStorage.getItem("USER_DATA-XAPP");
 		if (user) {
-		  const data = JSON.parse(user);
-		  headers.set('Authorization', `Bearer ${data.access_token}`);
+			const data = JSON.parse(user);
+			headers.set("Authorization", `Bearer ${data.access_token}`);
 		}
 		return headers;
-	}
-  });
+	},
+});
 
-  const refreshBaseQuery = async(args:any, api:any, extraOptions:any)=>{
+const refreshBaseQuery = async (args: any, api: any, extraOptions: any) => {
+	const result: any = await customBaseQuery(args, api, extraOptions);
 
-	const result :any = await customBaseQuery(args, api, extraOptions);
-	
 	// Intercept the response before it reaches the component
 	if (result.error) {
+		// Handle any errors, log, or modify the error response if necessary
+		if (result.error.status === 498) {
+			const url = getRefreshTokenQuery();
 
-	  // Handle any errors, log, or modify the error response if necessary
-	  if( result.error.status === 498 ){
+			const result: any = await fetch(`http://localhost:5000/api${url}`).then(
+				(res) => res.json(),
+			);
 
-		const url = getRefreshTokenQuery();
-
-		const result : any = await  fetch(`http://localhost:5000/api${url}` ).then(res => res.json());
-
-		if(result.success){
-			setUserData(result.data);
-			return refreshBaseQuery(args, api, extraOptions);
+			if (result.success) {
+				setUserData(result.data);
+				return refreshBaseQuery(args, api, extraOptions);
+			}
 		}
 
-	  }
-
-	  // You could return a custom error or rethrow the error
-	  return { error: result.error };
+		// You could return a custom error or rethrow the error
+		return { error: result.error };
 	}
 
 	// Modify the successful response if necessary
 	if (result.data) {
-	  // Example: Add a timestamp to the response data
-	  result.data.timestamp = Date.now();
+		// Example: Add a timestamp to the response data
+		result.data.timestamp = Date.now();
 	}
 
-	return result
-  }
+	return result;
+};
 
 // Create the API slice
 export const api = createApi({
@@ -63,7 +64,7 @@ export const api = createApi({
 	},
 	endpoints: (builder: EndpointBuilder<BaseQueryFn, string, string>) => ({
 		...postApiEndPoints(builder),
-		...authApiEndPoints(builder)
+		...authApiEndPoints(builder),
 	}),
 });
 
