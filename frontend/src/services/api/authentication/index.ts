@@ -25,7 +25,6 @@ interface loginResponse {
 	timestamp: string;
 }
 
-
 export const getRefreshTokenQuery = () => {
 	const data = getUserData();
 	if (data) {
