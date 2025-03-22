@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useEffect } from "react";
 import api from "@/services/api";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router";
 
 import styled from "styled-components";
 
@@ -11,9 +11,10 @@ const Container = styled.div`
   flex-direction: column;
   width: 100%;
   min-height: 100vh;
+  justify-content: center;
 `;
 
-export const AuthLayout: React.FC<Props> = ({ children }) => {
+export const AuthLayout: React.FC<Props> = ({}) => {
 	// { data: refreshData, error: refreshError, isLoading: refreshLoading }
 	const navigate = useNavigate();
 
@@ -25,7 +26,11 @@ export const AuthLayout: React.FC<Props> = ({ children }) => {
 		}
 	}, [refreshData]);
 
-	return <Container>{children}</Container>;
+	return (
+		<Container>
+			<Outlet />
+		</Container>
+	);
 };
 
 export default AuthLayout;

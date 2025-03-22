@@ -1,6 +1,5 @@
 // Home.js
 import React from "react";
-import Layout from "@/layout/app";
 import styled from "styled-components";
 import Counter from "@/components/counter";
 
@@ -21,15 +20,13 @@ export const Home: React.FC = () => {
 	const { isLoading } = api.useGetPostsQuery();
 
 	return (
-		<Layout>
-			<Container>
-				<p>
-					Edit <code>src/pages</code> and save.
-				</p>
-				<Counter />
-				<p> {isLoading && "loading.."}</p>
-			</Container>
-		</Layout>
+		<Container>
+			<p>
+				Edit <code>src/pages</code> and save.
+			</p>
+			<Counter />
+			<p> {isLoading && "loading.."}</p>
+		</Container>
 	);
 };
 

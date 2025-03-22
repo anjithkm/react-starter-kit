@@ -12,7 +12,7 @@ import { setUserData } from "@/util/user";
 
 // Create a custom fetchBaseQuery with a response interceptor
 const customBaseQuery = fetchBaseQuery({
-	baseUrl: "http://localhost:5000/api",
+	baseUrl: import.meta.env.API_BASE_URL,
 	prepareHeaders: (headers) => {
 		const user = window.localStorage.getItem("USER_DATA-XAPP");
 		if (user) {
@@ -30,11 +30,11 @@ const refreshBaseQuery = async (args: any, api: any, extraOptions: any) => {
 	if (result.error) {
 		// Handle any errors, log, or modify the error response if necessary
 		if (result.error.status === 498) {
-			const url = getRefreshTokenQuery();
+			const query = getRefreshTokenQuery();
 
-			const result: any = await fetch(`http://localhost:5000/api${url}`).then(
-				(res) => res.json(),
-			);
+			const result: any = await fetch(
+				`${import.meta.env.API_BASE_URL}${query}`,
+			).then((res) => res.json());
 
 			if (result.success) {
 				setUserData(result.data);

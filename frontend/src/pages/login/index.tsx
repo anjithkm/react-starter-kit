@@ -1,16 +1,10 @@
 import React, { useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import Layout from "@/layout/auth";
 import * as Yup from "yup";
 import api from "@/services/api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
-import {
-	LoginFormContainer,
-	FormControl,
-	ErrorText,
-	SubmitButton,
-} from "./style";
+import { LoginFormContainer } from "./style";
 
 export interface LoginFormValues {
 	user_name: string;
@@ -19,6 +13,7 @@ export interface LoginFormValues {
 
 const Login: React.FC = () => {
 	const navigate = useNavigate();
+
 	const [
 		postLogin,
 		{ data: loginData, isError: loginError, isLoading: loginLoading },
@@ -28,6 +23,8 @@ const Login: React.FC = () => {
 		user_name: "",
 		password: "",
 	};
+
+	const style: Object = { outline: "#6fb4fd" };
 
 	const validationSchema = Yup.object({
 		user_name: Yup.string().required("Required"),
@@ -43,42 +40,47 @@ const Login: React.FC = () => {
 	}, [loginData]);
 
 	const onSubmit = async (values: any) => {
-		console.log("Form data", values);
 		await postLogin(values);
 	};
 
 	return (
-		<Layout>
-			<LoginFormContainer>
-				<h2>Login</h2>
-				<ErrorText>
-					{loginError ? "Invalid credential. Try again!" : ""}
-				</ErrorText>
-				<Formik
-					initialValues={initialValues}
-					validationSchema={validationSchema}
-					onSubmit={onSubmit}
-				>
-					<Form>
-						<FormControl>
-							<label htmlFor="user_name">User Name:</label>
-							<Field type="text" id="user_name" name="user_name" />
-							<ErrorMessage name="user_name" component={ErrorText} />
-						</FormControl>
+		<LoginFormContainer style={style}>
+			<h2>Login</h2>
+			<div className="ErrorText">
+				{loginError ? "Invalid credential. Try again!" : ""}
+			</div>
+			<Formik
+				initialValues={initialValues}
+				validationSchema={validationSchema}
+				onSubmit={onSubmit}
+			>
+				<Form>
+					<div className="FormControl">
+						<label htmlFor="user_name">User Name:</label>
+						<Field type="text" id="user_name" name="user_name" />
+						<ErrorMessage
+							name="user_name"
+							component="div"
+							className="ErrorText"
+						/>
+					</div>
 
-						<FormControl>
-							<label htmlFor="password">Password:</label>
-							<Field type="password" id="password" name="password" />
-							<ErrorMessage name="password" component={ErrorText} />
-						</FormControl>
+					<div className="FormControl">
+						<label htmlFor="password">Password:</label>
+						<Field type="password" id="password" name="password" />
+						<ErrorMessage
+							name="password"
+							component="div"
+							className="ErrorText"
+						/>
+					</div>
 
-						<SubmitButton type="submit">
-							{loginLoading ? "Loading..." : "Login"}
-						</SubmitButton>
-					</Form>
-				</Formik>
-			</LoginFormContainer>
-		</Layout>
+					<button className="SubmitButton" type="submit">
+						{loginLoading ? "Loading..." : "Login"}
+					</button>
+				</Form>
+			</Formik>
+		</LoginFormContainer>
 	);
 };
 

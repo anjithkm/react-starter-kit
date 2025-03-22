@@ -14,16 +14,16 @@ interface signUpCredentials {
 	confirmPassword: string;
 }
 
-interface refreshPlayload {
-	access_token: string;
-	refresh_token: string;
-}
+// interface refreshPlayload {
+// 	access_token: string;
+// 	refresh_token: string;
+// }
 
-interface loginResponse {
-	token: string;
-	refresh: string;
-	timestamp: string;
-}
+// interface loginResponse {
+// 	token: string;
+// 	refresh: string;
+// 	timestamp: string;
+// }
 
 export const getRefreshTokenQuery = () => {
 	const data = getUserData();

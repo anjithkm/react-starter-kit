@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router";
 import api from "@/services/api";
 import styled from "styled-components";
 
@@ -19,7 +19,7 @@ const Container = styled.div`
   min-height: 100vh;
 `;
 
-export const AppLayout: React.FC<Props> = ({ children, privatized = true }) => {
+export const AppLayout: React.FC<Props> = ({ privatized = true }) => {
 	const navigate = useNavigate();
 	const { isError } = api.useRefreshQuery();
 
@@ -34,7 +34,7 @@ export const AppLayout: React.FC<Props> = ({ children, privatized = true }) => {
 	return (
 		<Container>
 			<Header />
-			{children}
+			<Outlet />
 			<Footer />
 		</Container>
 	);

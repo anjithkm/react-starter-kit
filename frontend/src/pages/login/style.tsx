@@ -8,21 +8,9 @@ export const LoginFormContainer = styled.div`
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: fit-content;
   text-align: center;
-  @media ${device.mobileS} {
-    background-color: #e07575;
-  }
-  @media ${device.mobileM} {
-    background-color: lightgreen;
-  }
-  @media ${device.tablet} {
-    background-color: #7fcae4;
-  }
-  @media ${device.laptop} {
-    background-color: #e4e47a;
-  }
-`;
 
-export const FormControl = styled.div`
+  /* FormControl Styles */
+.FormControl {
   margin-bottom: 15px;
   text-align: left;
 
@@ -34,18 +22,21 @@ export const FormControl = styled.div`
   input {
     width: 250px;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: ${(props) => `1px solid ${props?.style?.outline || "white"}`};
     border-radius: 4px;
   }
-`;
+}
 
-export const ErrorText = styled.div`
+
+/* ErrorText Styles */
+.ErrorText {
   color: #ff0000;
   font-size: 0.9em;
   margin: 10px 0px;
-`;
+}
 
-export const SubmitButton = styled.button`
+/* SubmitButton Styles */
+.SubmitButton {
   width: 100%;
   padding: 10px;
   background-color: #007bff;
@@ -53,8 +44,21 @@ export const SubmitButton = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
-
   &:hover {
     background-color: #0056b3;
+  }
+}
+
+  @media ${device.mobileS} {
+    background-color: #e07575;
+  }
+  @media ${device.mobileM} {
+    background-color: lightgreen;
+  }
+  @media ${device.tablet} {
+    background-color: #7fcae4;
+  }
+  @media ${device.laptop} {
+    background-color: #e4e47a;
   }
 `;

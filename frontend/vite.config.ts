@@ -19,7 +19,7 @@ export default defineConfig({
 	},
 	server: {
 		port: 80,
-		// allowedHosts: ['localhost'],
+		allowedHosts: ["localhost"],
 	},
 	plugins: [react()],
 });

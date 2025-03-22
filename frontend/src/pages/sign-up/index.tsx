@@ -1,20 +1,16 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import "./signup.css";
 
-import {
-	SignUpFormContainer,
-	FormControl,
-	ErrorText,
-	SubmitButton,
-} from "./style";
+import { SignUpFormContainer } from "./style";
 
 import api from "@/services/api";
 
 const SignUp: React.FC = () => {
 	const [postSignUp, { isError: signUpError, isLoading: signUpLoading }] =
 		api.useSignUpMutation();
+
+	const style: Object = { outline: "#6fb4fd" };
 
 	const initialValues = {
 		email: "",
@@ -33,7 +29,6 @@ const SignUp: React.FC = () => {
 	});
 
 	const onSubmit = async (values: any) => {
-		console.log("Form data", values);
 		try {
 			const response = await postSignUp(values);
 			console.log("SignUp successful", response);
@@ -43,34 +38,34 @@ const SignUp: React.FC = () => {
 	};
 
 	return (
-		<SignUpFormContainer>
+		<SignUpFormContainer style={style}>
 			<h2>Sign Up</h2>
-			<ErrorText>{signUpError ? "Error. Try again!" : ""}</ErrorText>
+			<div className="ErrorText">{signUpError ? "Error. Try again!" : ""}</div>
 			<Formik
 				initialValues={initialValues}
 				validationSchema={validationSchema}
 				onSubmit={onSubmit}
 			>
 				<Form>
-					<FormControl>
+					<div className="FormControl">
 						<label htmlFor="email">Email:</label>
 						<Field type="email" id="email" name="email" />
 						<ErrorMessage name="email" component="div" className="error" />
-					</FormControl>
+					</div>
 
-					<FormControl>
+					<div className="FormControl">
 						<label htmlFor="username">Username:</label>
 						<Field type="text" id="username" name="user_name" />
 						<ErrorMessage name="username" component="div" className="error" />
-					</FormControl>
+					</div>
 
-					<FormControl>
+					<div className="FormControl">
 						<label htmlFor="password">Password:</label>
 						<Field type="password" id="password" name="password" />
 						<ErrorMessage name="password" component="div" className="error" />
-					</FormControl>
+					</div>
 
-					<FormControl>
+					<div className="FormControl">
 						<label htmlFor="confirmPassword">Confirm Password:</label>
 						<Field
 							type="password"
@@ -82,11 +77,11 @@ const SignUp: React.FC = () => {
 							component="div"
 							className="error"
 						/>
-					</FormControl>
+					</div>
 
-					<SubmitButton type="submit">
+					<button className="SubmitButton" type="submit">
 						{signUpLoading ? "Loading..." : "Sign up"}
-					</SubmitButton>
+					</button>
 				</Form>
 			</Formik>
 		</SignUpFormContainer>
